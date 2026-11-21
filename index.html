@@ -3,458 +3,263 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow & Style PH — Beauty & Everyday OOTD Finds</title>
+  <title>Glow & Style PH — Curated Beauty, OOTD & Everyday Finds</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fdfafb; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-rose-50/40 text-slate-800 antialiased">
+<body class="text-slate-800 antialiased">
 
-  <!-- TOP PROMO BANNER -->
-  <div id="top-banner" class="bg-rose-600 text-white text-center text-xs sm:text-sm font-medium py-2 px-4">
-    ✨ Everyday Glow & OOTD Finds — Shop via Shopee, TikTok, Lazada, or Direct Checkout!
+  <!-- Top Promo Banner -->
+  <div id="promo-banner" class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 text-white text-center text-xs sm:text-sm font-medium py-2 px-4">
+    ✨ Everyday Glow, OOTD & Home Finds — Shop via Shopee, TikTok, Lazada, or Direct Checkout!
   </div>
 
-  <!-- HEADER / NAVBAR -->
+  <!-- Header / Navbar -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-rose-100 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5 cursor-pointer" onclick="showStorefront()">
-        <div id="brand-badge" class="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm">
-          G
-        </div>
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="showStoreView()">
+        <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm">G</div>
         <div>
-          <h1 id="store-name-display" class="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 leading-none">
-            Glow & Style PH
-          </h1>
-          <p id="store-tagline-display" class="text-xs text-slate-500 mt-0.5">
-            Curated Beauty & Everyday OOTD Finds
-          </p>
+          <h1 id="brand-name" class="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 leading-none">Glow & Style PH</h1>
+          <p id="brand-tagline" class="text-[11px] text-slate-500 mt-0.5">Curated Beauty & Everyday Finds</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 w-full sm:w-auto order-3 sm:order-2">
-        <div class="relative flex-1 sm:w-64">
-          <input
-            type="text"
-            id="search-input"
-            oninput="renderProducts()"
-            placeholder="Search outfits, liptint, bags..."
-            class="w-full pl-9 pr-3 py-2 text-sm bg-slate-100 border border-transparent focus:border-rose-400 focus:bg-white rounded-full outline-none transition"
-          />
-          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
-          </svg>
-        </div>
+      <!-- Search -->
+      <div class="hidden sm:flex flex-1 max-w-md mx-4">
+        <input id="search-input" type="text" oninput="renderProducts()" placeholder="Search outfits, liptint, fans, bags..."
+          class="w-full px-4 py-2 text-sm bg-slate-100 rounded-full border border-transparent focus:border-rose-300 focus:bg-white focus:outline-none transition" />
       </div>
 
-      <div class="flex items-center gap-2 order-2 sm:order-3">
-        <button onclick="openAdminGate()" class="text-xs font-semibold px-3 py-2 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
+      <!-- Actions -->
+      <div class="flex items-center gap-2">
+        <a href="https://docs.google.com/spreadsheets/d/1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0/edit" target="_blank" rel="noopener"
+          class="hidden md:inline-flex items-center gap-1 text-xs font-semibold px-3 py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition">
+          📊 Edit Sheet
+        </a>
+        <button onclick="openAdminModal()" class="text-xs font-semibold px-3 py-2 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
           Admin
         </button>
-        <button onclick="toggleCart(true)" class="relative flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-3.5 py-2 rounded-full shadow-sm transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-          </svg>
-          <span>Cart</span>
-          <span id="cart-count-badge" class="bg-white text-rose-600 text-xs font-extrabold px-1.5 py-0.5 rounded-full">0</span>
+        <button onclick="toggleCart()" class="relative flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full shadow-sm transition">
+          <span>🛍️ Cart</span>
+          <span id="cart-count" class="bg-white text-rose-600 text-xs font-extrabold px-1.5 py-0.5 rounded-full">0</span>
         </button>
       </div>
+    </div>
+
+    <!-- Mobile Search -->
+    <div class="sm:hidden px-4 pb-3">
+      <input id="search-input-mobile" type="text" oninput="syncSearch(this.value)" placeholder="Search outfits, liptint, fans, bags..."
+        class="w-full px-4 py-2 text-sm bg-slate-100 rounded-full border border-transparent focus:border-rose-300 focus:bg-white focus:outline-none" />
     </div>
   </header>
 
   <!-- STOREFRONT VIEW -->
-  <main id="storefront-view" class="max-w-6xl mx-auto px-4 py-6">
-    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-5">
-      <button onclick="setCategory('All Finds')" data-cat="All Finds" class="cat-tab active px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-rose-600 text-white shadow-sm">
-        All Finds
-      </button>
-      <button onclick="setCategory('Clothing & Bags')" data-cat="Clothing & Bags" class="cat-tab px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-rose-300">
-        Clothing & Bags
-      </button>
-      <button onclick="setCategory('Skincare & Makeup')" data-cat="Skincare & Makeup" class="cat-tab px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-rose-300">
-        Skincare & Makeup
-      </button>
-      <button onclick="setCategory('Glow + OOTD Bundles')" data-cat="Glow + OOTD Bundles" class="cat-tab px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-rose-300">
-        Glow + OOTD Bundles
-      </button>
+  <main id="store-view" class="max-w-6xl mx-auto px-4 py-6">
+    <!-- Dynamic Category Filter Pills -->
+    <div id="category-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4"></div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-state" class="text-center py-12 text-xs text-slate-400">
+      Loading latest finds...
     </div>
 
-    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+    <!-- Product Grid -->
+    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-2"></div>
 
+    <!-- Empty State -->
     <div id="empty-state" class="hidden text-center py-16">
-      <p class="text-slate-500 font-medium">No matching products found. Try another keyword or category!</p>
+      <p class="text-slate-400 text-sm">No matching finds yet. Try another keyword or category!</p>
     </div>
   </main>
 
   <!-- ADMIN DASHBOARD VIEW -->
-  <section id="admin-view" class="hidden max-w-6xl mx-auto px-4 py-6">
-    <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+  <section id="admin-view" class="hidden max-w-4xl mx-auto px-4 py-8">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
       <div>
-        <h2 class="text-xl font-extrabold text-slate-900">Store Admin Dashboard</h2>
-        <p class="text-xs text-slate-500">Manage products, Shopee/TikTok/Lazada affiliate links, direct inventory & orders</p>
+        <h2 class="text-xl font-extrabold text-slate-900">Store Admin — Google Sheets Sync</h2>
+        <p class="text-xs text-slate-500">Your storefront automatically loads products from your Google Sheet</p>
       </div>
-      <div class="flex items-center gap-2">
-        <button onclick="resetDemoData()" class="text-xs font-semibold px-3 py-2 rounded-lg border border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100">
-          Reset Default Demo
-        </button>
-        <button onclick="showStorefront()" class="text-xs font-semibold px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800">
-          ← Back to Store
-        </button>
-      </div>
-    </div>
-
-    <div class="flex gap-2 mb-6">
-      <button onclick="switchAdminTab('products')" id="adm-tab-products" class="px-4 py-2 rounded-xl text-sm font-bold bg-rose-600 text-white">
-        Products & Affiliate Links
-      </button>
-      <button onclick="switchAdminTab('orders')" id="adm-tab-orders" class="px-4 py-2 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200">
-        Direct Orders (<span id="admin-order-count">0</span>)
-      </button>
-      <button onclick="switchAdminTab('settings')" id="adm-tab-settings" class="px-4 py-2 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200">
-        Store Settings
+      <button onclick="showStoreView()" class="px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800">
+        ← Back to Store
       </button>
     </div>
 
-    <div id="admin-panel-products" class="grid lg:grid-cols-3 gap-6">
-      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
-        <h3 id="form-title" class="font-bold text-base text-slate-900 mb-4">Add New Product</h3>
-        <form id="product-form" onsubmit="saveProduct(event)" class="space-y-3">
-          <input type="hidden" id="prod-id" />
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Product Mode</label>
-            <select id="prod-mode" onchange="toggleProductModeFields()" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl bg-slate-50 font-semibold">
-              <option value="affiliate">Affiliate Mode (Shopee / TikTok / Lazada)</option>
-              <option value="direct">Direct Checkout Mode (Cart + COD/GCash)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Product Title</label>
-            <input type="text" id="prod-title" required placeholder="e.g. Dewy Velvet Liptint" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Category</label>
-              <select id="prod-category" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl">
-                <option value="Clothing & Bags">Clothing & Bags</option>
-                <option value="Skincare & Makeup">Skincare & Makeup</option>
-                <option value="Glow + OOTD Bundles">Glow + OOTD Bundles</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Price (₱ PHP)</label>
-              <input type="number" id="prod-price" required min="1" placeholder="199" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Product Image URL (or upload below)</label>
-            <input type="url" id="prod-image" placeholder="https://..." class="w-full p-2.5 text-sm border border-slate-200 rounded-xl mb-1.5" />
-            <input type="file" accept="image/*" onchange="handleProductImageUpload(event)" class="text-xs text-slate-500" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Short Description</label>
-            <textarea id="prod-desc" rows="2" placeholder="Lightweight, everyday wear..." class="w-full p-2.5 text-sm border border-slate-200 rounded-xl"></textarea>
-          </div>
-          <div id="affiliate-fields" class="space-y-2.5 p-3 bg-orange-50/70 border border-orange-200 rounded-xl">
-            <p class="text-xs font-bold text-orange-900">Affiliate Links (Leave blank if not available)</p>
-            <div>
-              <label class="block text-[11px] font-semibold text-orange-800 mb-0.5">Shopee Affiliate URL</label>
-              <input type="url" id="prod-shopee" placeholder="https://s.shopee.ph/..." class="w-full p-2 text-xs border border-orange-200 rounded-lg bg-white" />
-            </div>
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-800 mb-0.5">TikTok Shop Affiliate URL</label>
-              <input type="url" id="prod-tiktok" placeholder="https://vt.tiktok.com/..." class="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white" />
-            </div>
-            <div>
-              <label class="block text-[11px] font-semibold text-blue-800 mb-0.5">Lazada Affiliate URL</label>
-              <input type="url" id="prod-lazada" placeholder="https://s.lazada.com.ph/..." class="w-full p-2 text-xs border border-blue-200 rounded-lg bg-white" />
-            </div>
-          </div>
-          <div id="direct-fields" class="hidden space-y-2.5 p-3 bg-rose-50/70 border border-rose-200 rounded-xl">
-            <p class="text-xs font-bold text-rose-900">Direct Seller Options</p>
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-700 mb-0.5">Available Variants / Sizes (comma-separated)</label>
-              <input type="text" id="prod-variants" placeholder="Free Size, S, M, L" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white" />
-            </div>
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-700 mb-0.5">Stock Quantity</label>
-              <input type="number" id="prod-stock" value="20" min="0" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white" />
-            </div>
-          </div>
-
-          <div class="flex gap-2 pt-2">
-            <button type="submit" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold py-2.5 rounded-xl shadow-sm">
-              Save Product
-            </button>
-            <button type="button" onclick="resetProductForm()" class="px-3 py-2.5 text-xs font-semibold text-slate-600 bg-slate-100 rounded-xl hover:bg-slate-200">
-              Clear
-            </button>
-          </div>
-        </form>
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-emerald-50 border border-emerald-200 p-4 rounded-xl">
+        <div>
+          <p class="font-bold text-sm text-emerald-900">Connected Google Sheet: Glow & Style PH - Product Catalog</p>
+          <p class="text-xs text-emerald-700 mt-0.5">Add, edit, or delete rows in Google Sheets on your phone or PC—changes appear automatically on your live site!</p>
+        </div>
+        <a href="https://docs.google.com/spreadsheets/d/1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0/edit" target="_blank" rel="noopener"
+          class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm">
+          Open Google Sheet ↗
+        </a>
       </div>
 
-      <!-- Product List Table -->
-      <div class="lg:col-span-2 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-        <h3 class="font-bold text-base text-slate-900 mb-4">Store Catalog (<span id="admin-prod-count">0</span> items)</h3>
-        <div id="admin-product-list" class="space-y-3"></div>
-      </div>
-    </div>
-
-    <!-- ADMIN TAB 2: ORDERS -->
-    <div id="admin-panel-orders" class="hidden bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-      <h3 class="font-bold text-base text-slate-900 mb-4">Customer Direct Orders</h3>
-      <div id="admin-orders-list" class="space-y-3"></div>
-    </div>
-
-    <!-- ADMIN TAB 3: SETTINGS -->
-    <div id="admin-panel-settings" class="hidden max-w-xl bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-      <h3 class="font-bold text-base text-slate-900 mb-4">Storefront & Payment Settings</h3>
-      <form onsubmit="saveStoreSettings(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Store Name</label>
-          <input type="text" id="set-store-name" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Store Tagline</label>
-          <input type="text" id="set-tagline" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Top Promo Banner Text</label>
-          <input type="text" id="set-banner" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">GCash Number</label>
-            <input type="text" id="set-gcash-num" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">GCash Account Name</label>
-            <input type="text" id="set-gcash-name" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Admin Passcode</label>
-          <input type="text" id="set-passcode" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl" />
-        </div>
-        <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold px-5 py-2.5 rounded-xl">
-          Save Settings
+      <div class="flex items-center justify-between pt-2">
+        <h3 class="font-bold text-sm text-slate-900">Currently Synced Items (<span id="admin-total">0</span>)</h3>
+        <button onclick="fetchProductsFromSheet(true)" class="px-3 py-1.5 rounded-lg bg-rose-600 text-white text-xs font-bold hover:bg-rose-700">
+          ↻ Refresh from Sheet Now
         </button>
-      </form>
+      </div>
+      <div id="admin-product-list" class="space-y-2.5"></div>
     </div>
   </section>
 
-  <!-- PRODUCT DETAIL MODAL -->
-  <div id="product-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100">
-      <div class="relative">
-        <img id="modal-img" src="" alt="" class="w-full h-64 object-cover" />
-        <button onclick="closeProductModal()" class="absolute top-3 right-3 bg-white/90 hover:bg-white text-slate-800 w-9 h-9 rounded-full flex items-center justify-center font-bold shadow">
-          ✕
-        </button>
+  <!-- CART DRAWER -->
+  <div id="cart-drawer" class="hidden fixed inset-0 z-50 bg-slate-900/40 flex justify-end">
+    <div class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between p-5">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <h3 class="font-extrabold text-lg text-slate-900">Your Shopping Bag</h3>
+          <button onclick="toggleCart()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
+        </div>
+        <div id="cart-items" class="py-4 space-y-3 max-h-[55vh] overflow-y-auto"></div>
       </div>
-      <div class="p-5">
-        <span id="modal-cat" class="text-[11px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full"></span>
-        <h3 id="modal-title" class="text-xl font-extrabold text-slate-900 mt-2"></h3>
-        <p id="modal-price" class="text-lg font-extrabold text-rose-600 mt-1"></p>
-        <p id="modal-desc" class="text-sm text-slate-600 mt-2 leading-relaxed"></p>
-        <div id="modal-action-area" class="mt-5"></div>
-      </div>
-    </div>
-  </div>
 
-  <!-- CART & CHECKOUT DRAWER -->
-  <div id="cart-drawer" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-end">
-    <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl">
-      <div class="p-4 border-b border-slate-100 flex items-center justify-between">
-        <h3 class="font-extrabold text-lg text-slate-900">Your Shopping Bag</h3>
-        <button onclick="toggleCart(false)" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold">✕</button>
-      </div>
-      <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-      <div id="checkout-section" class="border-t border-slate-100 p-4 bg-slate-50 space-y-3">
-        <div class="flex justify-between text-xs text-slate-600">
-          <span>Subtotal</span>
-          <span id="cart-subtotal" class="font-bold">₱0</span>
-        </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-600 mb-1">Delivery Region</label>
-          <select id="ship-region" onchange="updateCartTotals()" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white">
-            <option value="60">Davao City (₱60)</option>
-            <option value="120">Mindanao Outside Davao (₱120)</option>
-            <option value="160">Visayas (₱160)</option>
-            <option value="190">Luzon / Metro Manila (₱190)</option>
-          </select>
-        </div>
-        <div class="flex justify-between text-sm font-extrabold text-slate-900 pt-1 border-t border-slate-200">
-          <span>Total Amount</span>
+      <div class="border-t border-slate-100 pt-4 space-y-3">
+        <div class="flex justify-between font-bold text-base">
+          <span>Total</span>
           <span id="cart-total" class="text-rose-600">₱0</span>
         </div>
-        <form onsubmit="submitDirectOrder(event)" class="space-y-2 pt-1">
-          <input type="text" id="cust-name" required placeholder="Full Name" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white" />
-          <input type="tel" id="cust-phone" required placeholder="Mobile Number (09XX...)" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white" />
-          <input type="text" id="cust-address" required placeholder="Complete Delivery Address & Landmark" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white" />
-          <select id="cust-payment" onchange="toggleGcashInfo()" class="w-full p-2 text-xs border border-slate-200 rounded-lg bg-white font-semibold">
-            <option value="COD">Cash on Delivery (COD)</option>
-            <option value="GCash">GCash E-Wallet Payment</option>
-          </select>
-          <div id="gcash-box" class="hidden p-2.5 bg-blue-50 border border-blue-200 rounded-lg text-[11px] text-blue-900">
-            Send payment to <strong id="checkout-gcash-details">0917-000-0000 (Glow & Style PH)</strong> and enter Reference No. below:
-            <input type="text" id="gcash-ref" placeholder="GCash Reference No." class="w-full mt-1.5 p-1.5 text-xs border border-blue-200 rounded bg-white" />
-          </div>
-          <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold py-2.5 rounded-xl shadow">
-            Place Direct Order
-          </button>
-        </form>
-      </div>
-    </div>
-  </div
-    <!-- ADMIN PASSCODE MODAL -->
-  <div id="admin-gate-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-xs w-full p-5 shadow-xl text-center">
-      <h3 class="font-extrabold text-base text-slate-900">Admin Access</h3>
-      <p class="text-xs text-slate-500 mt-1">Enter store passcode (Default: ADMIN2026)</p>
-      <input type="password" id="admin-pass-input" placeholder="Passcode" class="w-full mt-3 p-2.5 text-sm border border-slate-200 rounded-xl text-center" />
-      <div class="flex gap-2 mt-4">
-        <button onclick="document.getElementById('admin-gate-modal').classList.add('hidden')" class="flex-1 py-2 text-xs font-semibold bg-slate-100 rounded-xl">Cancel</button>
-        <button onclick="verifyAdminPass()" class="flex-1 py-2 text-xs font-bold bg-rose-600 text-white rounded-xl">Unlock</button>
+        <input id="cust-name" type="text" placeholder="Your Full Name" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200" />
+        <input id="cust-address" type="text" placeholder="Delivery Address (City / Barangay)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200" />
+        <select id="cust-payment" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white">
+          <option value="GCash">GCash</option>
+          <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+        <button onclick="checkoutOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl text-sm shadow-md transition">
+          Place Direct Order
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="mt-16 border-t border-rose-100 bg-white py-8 text-center text-xs text-slate-500">
-    <p class="font-bold text-slate-700" id="footer-store-name">Glow & Style PH</p>
+  <!-- ADMIN PASSCODE MODAL -->
+  <div id="admin-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xs w-full p-6 shadow-xl text-center">
+      <h3 class="font-extrabold text-base text-slate-900">Admin Access</h3>
+      <p class="text-xs text-slate-500 mt-1 mb-4">Enter store passcode</p>
+      <input id="admin-pass-input" type="password" placeholder="••••••••" class="w-full px-3 py-2 text-center rounded-xl border border-slate-200 mb-3" />
+      <div class="flex gap-2">
+        <button onclick="closeAdminModal()" class="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-semibold">Cancel</button>
+        <button onclick="verifyAdmin()" class="flex-1 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold">Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-16 border-t border-rose-100 py-8 text-center text-xs text-slate-400">
+    <p class="font-semibold text-slate-600">Glow & Style PH</p>
     <p class="mt-1">Curated Affiliate & Boutique Storefront • Philippines</p>
-    <button onclick="openAdminGate()" class="mt-3 text-[11px] text-slate-400 hover:text-rose-600 underline">Admin Dashboard</button>
+    <button onclick="openAdminModal()" class="mt-3 text-[11px] underline hover:text-rose-600">Admin Dashboard</button>
   </footer>
 
   <script>
-    const DEFAULT_SETTINGS = {
-      storeName: "Glow & Style PH",
-      tagline: "Curated Beauty & Everyday OOTD Finds",
-      banner: "✨ Everyday Glow & OOTD Finds — Shop via Shopee, TikTok, Lazada, or Direct Checkout!",
-      gcashNum: "0917-000-0000",
-      gcashName: "Glow & Style PH",
-      passcode: "ADMIN2026"
-    };
+    const SHEET_ID = "1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0";
+    const SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Products`;
+    const ADMIN_PASSWORDS = ["ADMINDEZ2026", "ADMIN2026"];
 
-    const DEFAULT_PRODUCTS = [
-{
-        id: "p_fan",
-        mode: "affiliate",
+    const FALLBACK_PRODUCTS = [
+      {
+        id: "prod_toolvolt",
         title: "Toolvolt 8-Inch Cordless Rechargeable Fan (8–9 Hours)",
-        category: "Clothing & Bags",
+        category: "Home & Gadgets",
         price: 589,
+        mode: "affiliate",
         image: "https://images.unsplash.com/photo-1618941716939-553df3c6c278?auto=format&fit=crop&w=800&q=80",
-        desc: "998VF super powerful lithium battery portable 8-inch cordless desk fan, lasts 8–9 hours.",
+        desc: "998VF super powerful lithium battery portable 8-inch cordless desk fan, lasts 8–9 hours with 2-speed adjustment.",
         shopee: "",
         tiktok: "https://vt.tiktok.com/ZS9P6Dq977S4p-jCMUm/",
-        lazada: "",
-        variants: [],
-        stock: 99
-      },
-      {
-        id: "p1",
-        mode: "affiliate",
-        title: "Cloud Dewy Velvet Liptint (Long-Lasting)",
-        category: "Skincare & Makeup",
-        price: 149,
-        image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
-        desc: "Lightweight hydrating lip & cheek tint with non-drying velvet finish.",
-        shopee: "https://shopee.ph",
-        tiktok: "https://www.tiktok.com",
-        lazada: "https://www.lazada.com.ph",
-        variants: [],
-        stock: 99
-      },
-      {
-        id: "p2",
-        mode: "affiliate",
-        title: "Korean Linen Puff-Sleeve Midi Dress",
-        category: "Clothing & Bags",
-        price: 389,
-        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=600&q=80",
-        desc: "Breathable cotton-linen casual OOTD dress perfect for brunch or church.",
-        shopee: "https://shopee.ph",
-        tiktok: "https://www.tiktok.com",
-        lazada: "",
-        variants: [],
-        stock: 99
-      },
-      {
-        id: "p3",
-        mode: "direct",
-        title: "Quilted Everyday Crossbody Shoulder Bag",
-        category: "Clothing & Bags",
-        price: 450,
-        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80",
-        desc: "Soft vegan leather bag with gold chain strap. On-hand & ready to ship!",
-        shopee: "",
-        tiktok: "",
-        lazada: "",
-        variants: ["Cream White", "Classic Black", "Blush Pink"],
-        stock: 15
-      },
-      {
-        id: "p4",
-        mode: "direct",
-        title: "Glass Skin Niacinamide Serum + Sunscreen Set",
-        category: "Glow + OOTD Bundles",
-        price: 520,
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
-        desc: "Complete morning glow duo with SPF50 PA++++ lightweight gel sunscreen.",
-        shopee: "",
-        tiktok: "",
-        lazada: "",
-        variants: ["Standard Set"],
-        stock: 12
+        lazada: ""
       }
     ];
 
-    let settings = JSON.parse(localStorage.getItem("gs_settings")) || { ...DEFAULT_SETTINGS };
-    let products = JSON.parse(localStorage.getItem("gs_products")) || [...DEFAULT_PRODUCTS];
-    let orders = JSON.parse(localStorage.getItem("gs_orders")) || [];
-    let cart = JSON.parse(localStorage.getItem("gs_cart")) || [];
-    let activeCategory = "All Finds";
+    let products = [];
+    let cart = JSON.parse(localStorage.getItem("glow_cart") || "[]");
+    let currentCategory = "All";
 
-    function saveState() {
-      localStorage.setItem("gs_settings", JSON.stringify(settings));
-      localStorage.setItem("gs_products", JSON.stringify(products));
-      localStorage.setItem("gs_orders", JSON.stringify(orders));
-      localStorage.setItem("gs_cart", JSON.stringify(cart));
+    async function fetchProductsFromSheet(showAlert = false) {
+      try {
+        const res = await fetch(SHEET_JSON_URL + "&t=" + Date.now());
+        const text = await res.text();
+        const jsonStr = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+        const data = JSON.parse(jsonStr);
+        const rows = data.table.rows || [];
+
+        const parsed = rows.map((r, i) => {
+          const c = r.c || [];
+          const val = (idx) => (c[idx] && c[idx].v !== null && c[idx].v !== undefined) ? String(c[idx].v).trim() : "";
+          const num = (idx) => (c[idx] && typeof c[idx].v === "number") ? c[idx].v : Number(String(val(idx)).replace(/[^0-9.]/g, "")) || 0;
+
+          return {
+            id: "sheet_" + i,
+            title: val(0),
+            category: val(1) || "All Finds",
+            price: num(2),
+            mode: (val(3) || "affiliate").toLowerCase(),
+            image: val(4),
+            desc: val(5),
+            shopee: val(6),
+            tiktok: val(7),
+            lazada: val(8)
+          };
+        }).filter(p => p.title && p.title.toLowerCase() !== "title");
+
+        products = parsed.length > 0 ? parsed : FALLBACK_PRODUCTS;
+        if (showAlert) alert("Synced " + products.length + " products from Google Sheets!");
+      } catch (err) {
+        console.warn("Using fallback catalog:", err);
+        products = FALLBACK_PRODUCTS;
+      }
+
+      document.getElementById("loading-state").classList.add("hidden");
+      renderCategoryTabs();
+      renderProducts();
+      renderAdminList();
+      updateCartUI();
     }
 
-    function applySettingsToUI() {
-      document.getElementById("store-name-display").textContent = settings.storeName;
-      document.getElementById("footer-store-name").textContent = settings.storeName;
-      document.getElementById("store-tagline-display").textContent = settings.tagline;
-      document.getElementById("top-banner").textContent = settings.banner;
-      document.getElementById("brand-badge").textContent = settings.storeName.charAt(0).toUpperCase();
-      document.getElementById("checkout-gcash-details").textContent = `${settings.gcashNum} (${settings.gcashName})`;
+    function renderCategoryTabs() {
+      const container = document.getElementById("category-tabs");
+      const uniqueCats = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
+      container.innerHTML = uniqueCats.map(cat => {
+        const active = currentCategory === cat;
+        const label = cat === "All" ? "All Finds" : cat;
+        return `<button onclick="setCategory('${cat.replace(/'/g, "\\'")}')" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition ${
+          active ? "bg-rose-600 text-white shadow-sm" : "bg-white border border-slate-200 text-slate-600 hover:bg-rose-50"
+        }">${label}</button>`;
+      }).join("");
     }
 
     function setCategory(cat) {
-      activeCategory = cat;
-      document.querySelectorAll(".cat-tab").forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.className = "cat-tab active px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-rose-600 text-white shadow-sm";
-        } else {
-          btn.className = "cat-tab px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-rose-300";
-        }
-      });
+      currentCategory = cat;
+      renderCategoryTabs();
+      renderProducts();
+    }
+
+    function syncSearch(val) {
+      document.getElementById("search-input").value = val;
       renderProducts();
     }
 
     function renderProducts() {
+      const query = (document.getElementById("search-input").value || "").toLowerCase();
       const grid = document.getElementById("product-grid");
       const empty = document.getElementById("empty-state");
-      const query = document.getElementById("search-input").value.toLowerCase().trim();
 
       const filtered = products.filter(p => {
-        const matchCat = activeCategory === "All Finds" || p.category === activeCategory;
-        const matchQuery = p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query);
+        const matchCat = currentCategory === "All" || p.category === currentCategory;
+        const matchQuery = p.title.toLowerCase().includes(query) || (p.desc || "").toLowerCase().includes(query);
         return matchCat && matchQuery;
       });
 
@@ -466,361 +271,147 @@
 
       empty.classList.add("hidden");
       grid.innerHTML = filtered.map(p => {
+        const isDirect = p.mode === "direct";
+        const badge = !isDirect
+          ? `<span class="absolute top-2.5 left-2.5 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Affiliate Find</span>`
+          : `<span class="absolute top-2.5 left-2.5 bg-rose-100 text-rose-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full">On-Hand</span>`;
+
         let actionButtons = "";
-        if (p.mode === "affiliate") {
-          actionButtons = `<div class="flex flex-wrap gap-1.5 mt-3">
-            ${p.shopee ? `<a href="${p.shopee}" target="_blank" onclick="event.stopPropagation()" class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white text-[11px] font-bold py-2 px-2 rounded-xl">Shopee</a>` : ""}
-            ${p.tiktok ? `<a href="${p.tiktok}" target="_blank" onclick="event.stopPropagation()" class="flex-1 text-center bg-slate-900 hover:bg-black text-white text-[11px] font-bold py-2 px-2 rounded-xl">TikTok</a>` : ""}
-            ${p.lazada ? `<a href="${p.lazada}" target="_blank" onclick="event.stopPropagation()" class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-2 px-2 rounded-xl">Lazada</a>` : ""}
-          </div>`;
+        if (!isDirect) {
+          const btns = [];
+          if (p.shopee) btns.push(`<a href="${p.shopee}" target="_blank" rel="noopener" class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2 rounded-xl transition">Shopee</a>`);
+          if (p.tiktok) btns.push(`<a href="${p.tiktok}" target="_blank" rel="noopener" class="flex-1 text-center bg-slate-900 hover:bg-black text-white text-xs font-bold py-2 rounded-xl transition">TikTok</a>`);
+          if (p.lazada) btns.push(`<a href="${p.lazada}" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 rounded-xl transition">Lazada</a>`);
+          actionButtons = `<div class="flex gap-1.5 mt-3">${btns.join("")}</div>`;
         } else {
-          actionButtons = `<button onclick="event.stopPropagation(); openProductModal('${p.id}')" class="w-full mt-3 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2.5 rounded-xl transition">
-            Add to Bag
-          </button>`;
+          actionButtons = `<button onclick="addToCart('${p.id}')" class="w-full mt-3 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2.5 rounded-xl transition">Add to Bag</button>`;
         }
 
         return `
-          <div onclick="openProductModal('${p.id}')" class="bg-white rounded-2xl border border-rose-100 overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer flex flex-col">
-            <div class="relative aspect-square bg-slate-100">
-              <img src="${p.image || 'https://placehold.co/400x400?text=Glow+%26+Style'}" alt="${p.title}" class="w-full h-full object-cover" />
-              <span class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full ${p.mode === 'affiliate' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-700'}">
-                ${p.mode === 'affiliate' ? 'Affiliate Find' : 'On-Hand'}
-              </span>
-            </div>
-            <div class="p-3.5 flex-1 flex flex-col justify-between">
-              <div>
-                <p class="text-[10px] font-semibold text-slate-400 uppercase">${p.category}</p>
-                <h3 class="font-bold text-sm text-slate-900 line-clamp-2 mt-0.5">${p.title}</h3>
-                <p class="font-extrabold text-rose-600 text-base mt-1">₱${Number(p.price).toLocaleString()}</p>
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-square bg-slate-100 overflow-hidden">
+                ${badge}
+                <img src="${p.image || 'https://placehold.co/600x600?text=Glow+%26+Style+PH'}" alt="${p.title}" class="w-full h-full object-cover" />
               </div>
-              ${actionButtons}
+              <div class="p-3.5">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">${p.category}</p>
+                <h3 class="font-bold text-xs sm:text-sm text-slate-900 line-clamp-2 mt-0.5">${p.title}</h3>
+                <p class="font-extrabold text-sm sm:text-base text-rose-600 mt-1.5">₱${Number(p.price).toLocaleString()}</p>
+              </div>
             </div>
+            <div class="px-3.5 pb-3.5">${actionButtons}</div>
           </div>
         `;
       }).join("");
     }
 
-    function openProductModal(id) {
-      const p = products.find(item => item.id === id);
-      if (!p) return;
-      document.getElementById("modal-img").src = p.image || "https://placehold.co/400x400?text=Glow+%26+Style";
-      document.getElementById("modal-cat").textContent = p.category;
-      document.getElementById("modal-title").textContent = p.title;
-      document.getElementById("modal-price").textContent = `₱${Number(p.price).toLocaleString()}`;
-      document.getElementById("modal-desc").textContent = p.desc;
-
-      const area = document.getElementById("modal-action-area");
-      if (p.mode === "affiliate") {
-        area.innerHTML = `
-          <p class="text-xs font-bold text-slate-600 mb-2">Choose your preferred shopping app:</p>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            ${p.shopee ? `<a href="${p.shopee}" target="_blank" class="text-center bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3 rounded-xl">Buy on Shopee</a>` : ""}
-            ${p.tiktok ? `<a href="${p.tiktok}" target="_blank" class="text-center bg-slate-900 hover:bg-black text-white text-xs font-bold py-3 rounded-xl">Buy on TikTok</a>` : ""}
-            ${p.lazada ? `<a href="${p.lazada}" target="_blank" class="text-center bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl">Buy on Lazada</a>` : ""}
-          </div>
-        `;
-      } else {
-        const opts = (p.variants && p.variants.length) ? p.variants : ["Standard"];
-        area.innerHTML = `
-          <label class="block text-xs font-bold text-slate-700 mb-1">Select Option / Size</label>
-          <select id="modal-variant-select" class="w-full p-2.5 text-sm border border-slate-200 rounded-xl mb-3">
-            ${opts.map(v => `<option value="${v}">${v}</option>`).join("")}
-          </select>
-          <button onclick="addToCart('${p.id}')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm py-3 rounded-xl shadow">
-            Add to Shopping Bag — ₱${Number(p.price).toLocaleString()}
-          </button>
-        `;
-      }
-      document.getElementById("product-modal").classList.remove("hidden");
-    }
-
-    function closeProductModal() {
-      document.getElementById("product-modal").classList.add("hidden");
-    }
-
     function addToCart(id) {
-      const p = products.find(item => item.id === id);
-      const variantEl = document.getElementById("modal-variant-select");
-      const variant = variantEl ? variantEl.value : "Standard";
-      const existing = cart.find(c => c.id === id && c.variant === variant);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ id: p.id, title: p.title, price: Number(p.price), variant, qty: 1, image: p.image });
-      }
-      saveState();
-      updateCartUI();
-      closeProductModal();
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      const existing = cart.find(i => i.id === id);
+      if (existing) existing.qty += 1;
+      else cart.push({ ...prod, qty: 1 });
+      saveCart();
       toggleCart(true);
     }
 
+    function saveCart() {
+      localStorage.setItem("glow_cart", JSON.stringify(cart));
+      updateCartUI();
+    }
+
     function updateCartUI() {
-      const badge = document.getElementById("cart-count-badge");
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      badge.textContent = totalItems;
+      const count = cart.reduce((sum, i) => sum + i.qty, 0);
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      document.getElementById("cart-count").textContent = count;
+      document.getElementById("cart-total").textContent = "₱" + total.toLocaleString();
 
-      const container = document.getElementById("cart-items-container");
+      const list = document.getElementById("cart-items");
       if (cart.length === 0) {
-        container.innerHTML = `<p class="text-center text-sm text-slate-400 py-12">Your shopping bag is empty.</p>`;
-      } else {
-        container.innerHTML = cart.map((item, idx) => `
-          <div class="flex items-center gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-            <img src="${item.image}" class="w-14 h-14 rounded-lg object-cover" />
-            <div class="flex-1 min-w-0">
-              <h4 class="text-xs font-bold text-slate-900 truncate">${item.title}</h4>
-              <p class="text-[11px] text-slate-500">${item.variant}</p>
-              <p class="text-xs font-extrabold text-rose-600 mt-0.5">₱${(item.price * item.qty).toLocaleString()}</p>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <button onclick="changeQty(${idx}, -1)" class="w-6 h-6 rounded bg-white border text-xs font-bold">-</button>
-              <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
-              <button onclick="changeQty(${idx}, 1)" class="w-6 h-6 rounded bg-white border text-xs font-bold">+</button>
-            </div>
-          </div>
-        `).join("");
-      }
-      updateCartTotals();
-    }
-
-    function changeQty(idx, delta) {
-      cart[idx].qty += delta;
-      if (cart[idx].qty <= 0) cart.splice(idx, 1);
-      saveState();
-      updateCartUI();
-    }
-
-    function updateCartTotals() {
-      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-      const shipping = cart.length > 0 ? Number(document.getElementById("ship-region").value) : 0;
-      document.getElementById("cart-subtotal").textContent = `₱${subtotal.toLocaleString()}`;
-      document.getElementById("cart-total").textContent = `₱${(subtotal + shipping).toLocaleString()}`;
-    }
-
-    function toggleCart(open) {
-      document.getElementById("cart-drawer").classList.toggle("hidden", !open);
-    }
-
-    function toggleGcashInfo() {
-      const isGcash = document.getElementById("cust-payment").value === "GCash";
-      document.getElementById("gcash-box").classList.toggle("hidden", !isGcash);
-    }
-
-    function submitDirectOrder(e) {
-      e.preventDefault();
-      if (cart.length === 0) return alert("Your bag is empty!");
-      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-      const shipping = Number(document.getElementById("ship-region").value);
-      const ref = "GS-" + Math.floor(100000 + Math.random() * 900000);
-
-      orders.unshift({
-        ref,
-        date: new Date().toLocaleString(),
-        name: document.getElementById("cust-name").value,
-        phone: document.getElementById("cust-phone").value,
-        address: document.getElementById("cust-address").value,
-        payment: document.getElementById("cust-payment").value,
-        gcashRef: document.getElementById("gcash-ref").value || "N/A",
-        items: [...cart],
-        total: subtotal + shipping
-      });
-
-      cart = [];
-      saveState();
-      updateCartUI();
-      toggleCart(false);
-      alert(`Order Confirmed! Reference No: ${ref}\nThank you for shopping with ${settings.storeName}!`);
-    }
-
-    // ADMIN FUNCTIONS
-    function openAdminGate() {
-      document.getElementById("admin-pass-input").value = "";
-      document.getElementById("admin-gate-modal").classList.remove("hidden");
-    }
-
-    function verifyAdminPass() {
-      const val = document.getElementById("admin-pass-input").value;
-      if (val === settings.passcode) {
-        document.getElementById("admin-gate-modal").classList.add("hidden");
-        document.getElementById("storefront-view").classList.add("hidden");
-        document.getElementById("admin-view").classList.remove("hidden");
-        renderAdminProducts();
-        renderAdminOrders();
-        loadSettingsForm();
-      } else {
-        alert("Incorrect passcode!");
-      }
-    }
-
-    function showStorefront() {
-      document.getElementById("admin-view").classList.add("hidden");
-      document.getElementById("storefront-view").classList.remove("hidden");
-      renderProducts();
-    }
-
-    function switchAdminTab(tab) {
-      ["products", "orders", "settings"].forEach(t => {
-        document.getElementById(`admin-panel-${t}`).classList.toggle("hidden", t !== tab);
-        document.getElementById(`adm-tab-${t}`).className = t === tab
-          ? "px-4 py-2 rounded-xl text-sm font-bold bg-rose-600 text-white"
-          : "px-4 py-2 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200";
-      });
-    }
-
-    function toggleProductModeFields() {
-      const mode = document.getElementById("prod-mode").value;
-      document.getElementById("affiliate-fields").classList.toggle("hidden", mode !== "affiliate");
-      document.getElementById("direct-fields").classList.toggle("hidden", mode !== "direct");
-    }
-
-    function handleProductImageUpload(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => { document.getElementById("prod-image").value = reader.result; };
-      reader.readAsDataURL(file);
-    }
-
-    function saveProduct(e) {
-      e.preventDefault();
-      const id = document.getElementById("prod-id").value || "p_" + Date.now();
-      const variantsRaw = document.getElementById("prod-variants").value;
-      const prodObj = {
-        id,
-        mode: document.getElementById("prod-mode").value,
-        title: document.getElementById("prod-title").value,
-        category: document.getElementById("prod-category").value,
-        price: Number(document.getElementById("prod-price").value),
-        image: document.getElementById("prod-image").value || "https://placehold.co/400x400?text=Product",
-        desc: document.getElementById("prod-desc").value,
-        shopee: document.getElementById("prod-shopee").value,
-        tiktok: document.getElementById("prod-tiktok").value,
-        lazada: document.getElementById("prod-lazada").value,
-        variants: variantsRaw ? variantsRaw.split(",").map(s => s.trim()).filter(Boolean) : ["Standard"],
-        stock: Number(document.getElementById("prod-stock").value || 10)
-      };
-
-      const existingIdx = products.findIndex(p => p.id === id);
-      if (existingIdx > -1) products[existingIdx] = prodObj;
-      else products.unshift(prodObj);
-
-      saveState();
-      resetProductForm();
-      renderAdminProducts();
-      renderProducts();
-    }
-
-    function editProduct(id) {
-      const p = products.find(item => item.id === id);
-      if (!p) return;
-      document.getElementById("form-title").textContent = "Edit Product";
-      document.getElementById("prod-id").value = p.id;
-      document.getElementById("prod-mode").value = p.mode;
-      toggleProductModeFields();
-      document.getElementById("prod-title").value = p.title;
-      document.getElementById("prod-category").value = p.category;
-      document.getElementById("prod-price").value = p.price;
-      document.getElementById("prod-image").value = p.image;
-      document.getElementById("prod-desc").value = p.desc;
-      document.getElementById("prod-shopee").value = p.shopee || "";
-      document.getElementById("prod-tiktok").value = p.tiktok || "";
-      document.getElementById("prod-lazada").value = p.lazada || "";
-      document.getElementById("prod-variants").value = (p.variants || []).join(", ");
-      document.getElementById("prod-stock").value = p.stock || 10;
-    }
-
-    function deleteProduct(id) {
-      if (!confirm("Delete this product?")) return;
-      products = products.filter(p => p.id !== id);
-      saveState();
-      renderAdminProducts();
-      renderProducts();
-    }
-
-    function resetProductForm() {
-      document.getElementById("form-title").textContent = "Add New Product";
-      document.getElementById("product-form").reset();
-      document.getElementById("prod-id").value = "";
-      toggleProductModeFields();
-    }
-
-    function renderAdminProducts() {
-      document.getElementById("admin-prod-count").textContent = products.length;
-      document.getElementById("admin-product-list").innerHTML = products.map(p => `
-        <div class="flex items-center justify-between gap-3 p-3 border border-slate-100 rounded-xl bg-slate-50">
-          <div class="flex items-center gap-3 min-w-0">
-            <img src="${p.image}" class="w-12 h-12 rounded-lg object-cover" />
-            <div class="min-w-0">
-              <p class="text-xs font-bold text-slate-900 truncate">${p.title}</p>
-              <p class="text-[11px] text-slate-500">₱${p.price} • ${p.mode === 'affiliate' ? 'Affiliate' : 'Direct'}</p>
-            </div>
-          </div>
-          <div class="flex gap-1.5">
-            <button onclick="editProduct('${p.id}')" class="px-2.5 py-1 text-xs font-semibold bg-white border rounded-lg">Edit</button>
-            <button onclick="deleteProduct('${p.id}')" class="px-2.5 py-1 text-xs font-semibold bg-red-50 text-red-600 rounded-lg">Delete</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function renderAdminOrders() {
-      document.getElementById("admin-order-count").textContent = orders.length;
-      const list = document.getElementById("admin-orders-list");
-      if (orders.length === 0) {
-        list.innerHTML = `<p class="text-xs text-slate-400">No direct orders yet.</p>`;
+        list.innerHTML = `<p class="text-xs text-slate-400 text-center py-8">Your bag is empty.</p>`;
         return;
       }
-      list.innerHTML = orders.map(o => `
-        <div class="p-3.5 border border-slate-200 rounded-xl bg-slate-50 text-xs space-y-1">
-          <div class="flex justify-between font-bold text-slate-900">
-            <span>${o.ref} — ${o.name} (${o.phone})</span>
-            <span class="text-rose-600">₱${o.total.toLocaleString()} (${o.payment})</span>
+      list.innerHTML = cart.map((item, idx) => `
+        <div class="flex items-center justify-between gap-3 bg-slate-50 p-2.5 rounded-xl">
+          <div>
+            <p class="font-bold text-xs text-slate-800">${item.title}</p>
+            <p class="text-xs text-rose-600 font-semibold">₱${item.price.toLocaleString()} × ${item.qty}</p>
           </div>
-          <p class="text-slate-600">Address: ${o.address}</p>
-          <p class="text-slate-500">Items: ${o.items.map(i => `${i.title} [${i.variant}] x${i.qty}`).join(", ")}</p>
+          <button onclick="removeCartItem(${idx})" class="text-xs text-rose-500 font-bold px-2">Remove</button>
         </div>
       `).join("");
     }
 
-    function loadSettingsForm() {
-      document.getElementById("set-store-name").value = settings.storeName;
-      document.getElementById("set-tagline").value = settings.tagline;
-      document.getElementById("set-banner").value = settings.banner;
-      document.getElementById("set-gcash-num").value = settings.gcashNum;
-      document.getElementById("set-gcash-name").value = settings.gcashName;
-      document.getElementById("set-passcode").value = settings.passcode;
+    function removeCartItem(idx) {
+      cart.splice(idx, 1);
+      saveCart();
     }
 
-    function saveStoreSettings(e) {
-      e.preventDefault();
-      settings = {
-        storeName: document.getElementById("set-store-name").value,
-        tagline: document.getElementById("set-tagline").value,
-        banner: document.getElementById("set-banner").value,
-        gcashNum: document.getElementById("set-gcash-num").value,
-        gcashName: document.getElementById("set-gcash-name").value,
-        passcode: document.getElementById("set-passcode").value || "ADMIN2026"
-      };
-      saveState();
-      applySettingsToUI();
-      alert("Store settings saved!");
+    function toggleCart(forceOpen) {
+      const drawer = document.getElementById("cart-drawer");
+      if (forceOpen === true) drawer.classList.remove("hidden");
+      else drawer.classList.toggle("hidden");
     }
 
-    function resetDemoData() {
-      if (!confirm("Reset store products and settings back to default?")) return;
-      localStorage.removeItem("gs_settings");
-      localStorage.removeItem("gs_products");
-      settings = { ...DEFAULT_SETTINGS };
-      products = [...DEFAULT_PRODUCTS];
-      saveState();
-      applySettingsToUI();
-      renderAdminProducts();
+    function checkoutOrder() {
+      if (cart.length === 0) return alert("Your bag is empty!");
+      const name = document.getElementById("cust-name").value.trim();
+      const addr = document.getElementById("cust-address").value.trim();
+      const pay = document.getElementById("cust-payment").value;
+      if (!name || !addr) return alert("Please enter your name and delivery address.");
+      alert(`Thank you, ${name}! Your direct order via ${pay} has been recorded.`);
+      cart = [];
+      saveCart();
+      toggleCart(false);
+    }
+
+    function openAdminModal() {
+      document.getElementById("admin-modal").classList.remove("hidden");
+      document.getElementById("admin-pass-input").value = "";
+      document.getElementById("admin-pass-input").focus();
+    }
+
+    function closeAdminModal() {
+      document.getElementById("admin-modal").classList.add("hidden");
+    }
+
+    function verifyAdmin() {
+      const val = document.getElementById("admin-pass-input").value.trim();
+      if (ADMIN_PASSWORDS.includes(val)) {
+        closeAdminModal();
+        document.getElementById("store-view").classList.add("hidden");
+        document.getElementById("admin-view").classList.remove("hidden");
+        renderAdminList();
+      } else {
+        alert("Incorrect passcode! Try ADMINDEZ2026");
+      }
+    }
+
+    function showStoreView() {
+      document.getElementById("admin-view").classList.add("hidden");
+      document.getElementById("store-view").classList.remove("hidden");
       renderProducts();
     }
 
-    // INIT
-    applySettingsToUI();
-    renderProducts();
-    updateCartUI();
+    function renderAdminList() {
+      document.getElementById("admin-total").textContent = products.length;
+      const list = document.getElementById("admin-product-list");
+      list.innerHTML = products.map(p => `
+        <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/60">
+          <div class="flex items-center gap-3">
+            <img src="${p.image || 'https://placehold.co/100x100'}" class="w-11 h-11 rounded-lg object-cover bg-white border" />
+            <div>
+              <p class="font-bold text-xs text-slate-900">${p.title}</p>
+              <p class="text-[11px] text-slate-500">₱${Number(p.price).toLocaleString()} • ${p.category}</p>
+            </div>
+          </div>
+          <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Synced</span>
+        </div>
+      `).join("");
+    }
+
+    fetchProductsFromSheet();
   </script>
 </body>
 </html>
