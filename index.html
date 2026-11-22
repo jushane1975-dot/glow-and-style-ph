@@ -3,181 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover curated beauty, fashion, gadgets and everyday finds at Glow & Style PH." />
   <title>Glow & Style PH — Curated Beauty, OOTD & Everyday Finds</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fdfafb; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #fdfafb;
+    }
     .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
+
 <body class="text-slate-800 antialiased">
 
-  <!-- Top Promo Banner -->
-  <div id="promo-banner" class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 text-white text-center text-xs sm:text-sm font-medium py-2 px-4">
-    ✨ Everyday Glow, OOTD & Home Finds — Shop via Shopee, TikTok, Lazada, or Direct Checkout!
+  <!-- PROMO BANNER -->
+  <div class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 text-white text-center text-xs sm:text-sm font-medium py-2 px-4">
+    ✨ Everyday Glow, OOTD & Home Finds — Discover Your Next Favorite!
   </div>
 
-  <!-- Header / Navbar -->
+  <!-- HEADER -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-rose-100 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5 cursor-pointer" onclick="showStoreView()">
-        <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm">G</div>
+
+      <div onclick="handleLogoTap()" class="flex items-center gap-2.5 cursor-pointer select-none">
+        <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm">
+          G
+        </div>
         <div>
-          <h1 id="brand-name" class="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 leading-none">Glow & Style PH</h1>
-          <p id="brand-tagline" class="text-[11px] text-slate-500 mt-0.5">Curated Beauty & Everyday Finds</p>
+          <h1 class="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 leading-none">
+            Glow & Style PH
+          </h1>
+          <p class="text-[11px] text-slate-500 mt-0.5">
+            Curated Beauty & Everyday Finds
+          </p>
         </div>
       </div>
 
-      <!-- Search -->
-      <div class="hidden sm:flex flex-1 max-w-md mx-4">
-        <input id="search-input" type="text" oninput="renderProducts()" placeholder="Search outfits, liptint, fans, bags..."
-          class="w-full px-4 py-2 text-sm bg-slate-100 rounded-full border border-transparent focus:border-rose-300 focus:bg-white focus:outline-none transition" />
+      <!-- DESKTOP SEARCH -->
+      <div class="hidden sm:flex flex-1 max-w-md ml-auto">
+        <input
+          id="search-input"
+          type="text"
+          oninput="renderProducts()"
+          placeholder="Search outfits, liptint, fans, bags..."
+          class="w-full px-4 py-2 text-sm bg-slate-100 rounded-full border border-transparent focus:border-rose-300 focus:bg-white focus:outline-none transition"
+        />
       </div>
 
-      <!-- Actions -->
-      <div class="flex items-center gap-2">
-        <a href="https://docs.google.com/spreadsheets/d/1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0/edit" target="_blank" rel="noopener"
-          class="hidden md:inline-flex items-center gap-1 text-xs font-semibold px-3 py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition">
-          📊 Edit Sheet
-        </a>
-        <button onclick="openAdminModal()" class="text-xs font-semibold px-3 py-2 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-          Admin
-        </button>
-        <button onclick="toggleCart()" class="relative flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full shadow-sm transition">
-          <span>🛍️ Cart</span>
-          <span id="cart-count" class="bg-white text-rose-600 text-xs font-extrabold px-1.5 py-0.5 rounded-full">0</span>
-        </button>
-      </div>
+      <!-- HIDDEN ADMIN SHEET BUTTON (Only visible via ?admin=dez or 5 taps on logo) -->
+      <a
+        id="secret-sheet-btn"
+        href="https://docs.google.com/spreadsheets/d/1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0/edit"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden items-center gap-1 text-xs font-semibold px-3 py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition"
+      >
+        📊 Open Google Sheet
+      </a>
     </div>
 
-    <!-- Mobile Search -->
+    <!-- MOBILE SEARCH -->
     <div class="sm:hidden px-4 pb-3">
-      <input id="search-input-mobile" type="text" oninput="syncSearch(this.value)" placeholder="Search outfits, liptint, fans, bags..."
-        class="w-full px-4 py-2 text-sm bg-slate-100 rounded-full border border-transparent focus:border-rose-300 focus:bg-white focus:outline-none" />
+      <input
+        id="search-input-mobile"
+        type="text"
+        oninput="syncSearch(this.value)"
+        placeholder="Search outfits, liptint, fans, bags..."
+        class="w-full px-4 py-2 text-sm bg-slate-100 rounded-full border border-transparent focus:border-rose-300 focus:bg-white focus:outline-none"
+      />
     </div>
   </header>
 
-  <!-- STOREFRONT VIEW -->
-  <main id="store-view" class="max-w-6xl mx-auto px-4 py-6">
-    <!-- Dynamic Category Filter Pills -->
-    <div id="category-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4"></div>
+  <!-- STORE CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 py-6">
 
-    <!-- Loading Indicator -->
+    <section class="mb-5">
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+        Find Your Everyday Favorites
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Handpicked finds for your style, beauty, and home.
+      </p>
+    </section>
+
+    <!-- CATEGORY FILTERS -->
+    <div
+      id="category-tabs"
+      class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4"
+    ></div>
+
+    <!-- LOADING -->
     <div id="loading-state" class="text-center py-12 text-xs text-slate-400">
       Loading latest finds...
     </div>
 
-    <!-- Product Grid -->
-    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-2"></div>
+    <!-- PRODUCTS -->
+    <div
+      id="product-grid"
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-2"
+    ></div>
 
-    <!-- Empty State -->
+    <!-- EMPTY STATE -->
     <div id="empty-state" class="hidden text-center py-16">
-      <p class="text-slate-400 text-sm">No matching finds yet. Try another keyword or category!</p>
+      <p class="text-slate-400 text-sm">
+        No matching finds yet. Try another keyword or category!
+      </p>
     </div>
-  </main>
 
-  <!-- ADMIN DASHBOARD VIEW -->
-  <section id="admin-view" class="hidden max-w-4xl mx-auto px-4 py-8">
-    <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
-      <div>
-        <h2 class="text-xl font-extrabold text-slate-900">Store Admin — Google Sheets Sync</h2>
-        <p class="text-xs text-slate-500">Your storefront automatically loads products from your Google Sheet</p>
-      </div>
-      <button onclick="showStoreView()" class="px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800">
-        ← Back to Store
+    <!-- ERROR STATE -->
+    <div id="error-state" class="hidden text-center py-8">
+      <p class="text-sm text-slate-500">
+        We couldn't load the product catalog. Please try again.
+      </p>
+      <button
+        onclick="fetchProductsFromSheet()"
+        class="mt-3 px-4 py-2 rounded-full bg-rose-600 text-white text-xs font-bold"
+      >
+        Try Again
       </button>
     </div>
 
-    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-emerald-50 border border-emerald-200 p-4 rounded-xl">
-        <div>
-          <p class="font-bold text-sm text-emerald-900">Connected Google Sheet: Glow & Style PH - Product Catalog</p>
-          <p class="text-xs text-emerald-700 mt-0.5">Add, edit, or delete rows in Google Sheets on your phone or PC—changes appear automatically on your live site!</p>
-        </div>
-        <a href="https://docs.google.com/spreadsheets/d/1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0/edit" target="_blank" rel="noopener"
-          class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm">
-          Open Google Sheet ↗
-        </a>
-      </div>
+  </main>
 
-      <div class="flex items-center justify-between pt-2">
-        <h3 class="font-bold text-sm text-slate-900">Currently Synced Items (<span id="admin-total">0</span>)</h3>
-        <button onclick="fetchProductsFromSheet(true)" class="px-3 py-1.5 rounded-lg bg-rose-600 text-white text-xs font-bold hover:bg-rose-700">
-          ↻ Refresh from Sheet Now
-        </button>
-      </div>
-      <div id="admin-product-list" class="space-y-2.5"></div>
+  <!-- AFFILIATE DISCLOSURE -->
+  <section class="max-w-6xl mx-auto px-4 mt-8">
+    <div class="bg-rose-50 border border-rose-100 rounded-2xl p-4">
+      <p class="text-xs text-slate-600 leading-relaxed">
+        <strong class="text-slate-800">Affiliate Disclosure:</strong>
+        Some product links on Glow & Style PH are affiliate links.
+        We may earn a commission when you make an eligible purchase
+        through these links, at no additional cost to you.
+      </p>
+      <p class="text-xs text-slate-500 mt-2">
+        Product prices, availability, shipping, and checkout are handled
+        by the respective marketplace and may change.
+      </p>
     </div>
   </section>
 
-  <!-- CART DRAWER -->
-  <div id="cart-drawer" class="hidden fixed inset-0 z-50 bg-slate-900/40 flex justify-end">
-    <div class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between p-5">
-      <div>
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-          <h3 class="font-extrabold text-lg text-slate-900">Your Shopping Bag</h3>
-          <button onclick="toggleCart()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
-        </div>
-        <div id="cart-items" class="py-4 space-y-3 max-h-[55vh] overflow-y-auto"></div>
-      </div>
-
-      <div class="border-t border-slate-100 pt-4 space-y-3">
-        <div class="flex justify-between font-bold text-base">
-          <span>Total</span>
-          <span id="cart-total" class="text-rose-600">₱0</span>
-        </div>
-        <input id="cust-name" type="text" placeholder="Your Full Name" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200" />
-        <input id="cust-address" type="text" placeholder="Delivery Address (City / Barangay)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200" />
-        <select id="cust-payment" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white">
-          <option value="GCash">GCash</option>
-          <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
-          <option value="Bank Transfer">Bank Transfer</option>
-        </select>
-        <button onclick="checkoutOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl text-sm shadow-md transition">
-          Place Direct Order
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN PASSCODE MODAL -->
-  <div id="admin-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-xs w-full p-6 shadow-xl text-center">
-      <h3 class="font-extrabold text-base text-slate-900">Admin Access</h3>
-      <p class="text-xs text-slate-500 mt-1 mb-4">Enter store passcode</p>
-      <input id="admin-pass-input" type="password" placeholder="••••••••" class="w-full px-3 py-2 text-center rounded-xl border border-slate-200 mb-3" />
-      <div class="flex gap-2">
-        <button onclick="closeAdminModal()" class="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-semibold">Cancel</button>
-        <button onclick="verifyAdmin()" class="flex-1 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold">Unlock</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="mt-16 border-t border-rose-100 py-8 text-center text-xs text-slate-400">
+  <!-- FOOTER -->
+  <footer class="mt-12 border-t border-rose-100 py-8 text-center text-xs text-slate-400">
     <p class="font-semibold text-slate-600">Glow & Style PH</p>
-    <p class="mt-1">Curated Affiliate & Boutique Storefront • Philippines</p>
-    <button onclick="openAdminModal()" class="mt-3 text-[11px] underline hover:text-rose-600">Admin Dashboard</button>
+    <p class="mt-1">Curated Affiliate Storefront • Philippines</p>
+    <p class="mt-3">
+      Discover your favorite finds from TikTok Shop, Shopee, and Lazada.
+    </p>
+    <p class="mt-3">
+      © <span id="current-year"></span> Glow & Style PH
+    </p>
   </footer>
 
   <script>
     const SHEET_ID = "1U76CvsXB4sgg46tC29-rX5jN15fCvo5mGpHJNkUygS0";
-    const SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Products`;
-    const ADMIN_PASSWORDS = ["ADMINDEZ2026", "ADMIN2026"];
+    const SHEET_JSON_URL =
+      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Products`;
 
     const FALLBACK_PRODUCTS = [
       {
         id: "prod_toolvolt",
-        title: "Toolvolt 8-Inch Cordless Rechargeable Fan (8–9 Hours)",
+        title: "Toolvolt 8-Inch Cordless Rechargeable Fan",
         category: "Home & Gadgets",
         price: 589,
-        mode: "affiliate",
         image: "https://images.unsplash.com/photo-1618941716939-553df3c6c278?auto=format&fit=crop&w=800&q=80",
-        desc: "998VF super powerful lithium battery portable 8-inch cordless desk fan, lasts 8–9 hours with 2-speed adjustment.",
+        desc: "Portable rechargeable 8-inch cordless desk fan.",
         shopee: "",
         tiktok: "https://vt.tiktok.com/ZS9P6Dq977S4p-jCMUm/",
         lazada: ""
@@ -185,233 +183,325 @@
     ];
 
     let products = [];
-    let cart = JSON.parse(localStorage.getItem("glow_cart") || "[]");
     let currentCategory = "All";
+    let logoTapCount = 0;
+    let logoTapTimer = null;
 
-    async function fetchProductsFromSheet(showAlert = false) {
+    // SECRET OWNER ACCESS (?admin=dez or 5 taps on logo)
+    function unlockOwnerSheetButton() {
+      const btn = document.getElementById("secret-sheet-btn");
+      btn.classList.remove("hidden");
+      btn.classList.add("inline-flex");
+    }
+
+    function handleLogoTap() {
+      logoTapCount++;
+      clearTimeout(logoTapTimer);
+      if (logoTapCount >= 5) {
+        unlockOwnerSheetButton();
+        logoTapCount = 0;
+      } else {
+        logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1500);
+      }
+    }
+
+    if (new URLSearchParams(window.location.search).get("admin") === "dez") {
+      unlockOwnerSheetButton();
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function safeMarketplaceURL(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+
       try {
-        const res = await fetch(SHEET_JSON_URL + "&t=" + Date.now());
-        const text = await res.text();
-        const jsonStr = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-        const data = JSON.parse(jsonStr);
-        const rows = data.table.rows || [];
+        const url = new URL(raw);
+        if (url.protocol !== "https:") return "";
 
-        const parsed = rows.map((r, i) => {
-          const c = r.c || [];
-          const val = (idx) => (c[idx] && c[idx].v !== null && c[idx].v !== undefined) ? String(c[idx].v).trim() : "";
-          const num = (idx) => (c[idx] && typeof c[idx].v === "number") ? c[idx].v : Number(String(val(idx)).replace(/[^0-9.]/g, "")) || 0;
+        const host = url.hostname.toLowerCase();
+        const allowedHosts = [
+          "tiktok.com",
+          "www.tiktok.com",
+          "vt.tiktok.com",
+          "vm.tiktok.com",
+          "shop.tiktok.com",
+          "shopee.ph",
+          "www.shopee.ph",
+          "s.shopee.ph",
+          "lazada.com.ph",
+          "www.lazada.com.ph"
+        ];
+
+        const allowed = allowedHosts.some(
+          domain => host === domain || host.endsWith("." + domain)
+        );
+
+        return allowed ? url.href : "";
+      } catch (error) {
+        return "";
+      }
+    }
+
+    async function fetchProductsFromSheet() {
+      const loading = document.getElementById("loading-state");
+      const errorState = document.getElementById("error-state");
+
+      loading.classList.remove("hidden");
+      errorState.classList.add("hidden");
+
+      try {
+        const response = await fetch(SHEET_JSON_URL + "&t=" + Date.now());
+        if (!response.ok) throw new Error("Google Sheets request failed");
+
+        const responseText = await response.text();
+        const start = responseText.indexOf("{");
+        const end = responseText.lastIndexOf("}");
+        if (start === -1 || end === -1) throw new Error("Invalid Google Sheets response");
+
+        const jsonString = responseText.substring(start, end + 1);
+        const data = JSON.parse(jsonString);
+        const rows = data.table?.rows || [];
+
+        const parsedProducts = rows.map((row, index) => {
+          const cells = row.c || [];
+          const value = (columnIndex) => {
+            const cell = cells[columnIndex];
+            if (!cell || cell.v === null || cell.v === undefined) return "";
+            return String(cell.v).trim();
+          };
+
+          const priceValue = value(2);
+          const price = Number(priceValue.replace(/[^0-9.]/g, "")) || 0;
 
           return {
-            id: "sheet_" + i,
-            title: val(0),
-            category: val(1) || "All Finds",
-            price: num(2),
-            mode: (val(3) || "affiliate").toLowerCase(),
-            image: val(4),
-            desc: val(5),
-            shopee: val(6),
-            tiktok: val(7),
-            lazada: val(8)
+            id: "sheet_" + index,
+            title: value(0),
+            category: value(1) || "All Finds",
+            price: price,
+            image: value(4),
+            desc: value(5),
+            shopee: safeMarketplaceURL(value(6)),
+            tiktok: safeMarketplaceURL(value(7)),
+            lazada: safeMarketplaceURL(value(8))
           };
-        }).filter(p => p.title && p.title.toLowerCase() !== "title");
+        }).filter(product => product.title);
 
-        products = parsed.length > 0 ? parsed : FALLBACK_PRODUCTS;
-        if (showAlert) alert("Synced " + products.length + " products from Google Sheets!");
-      } catch (err) {
-        console.warn("Using fallback catalog:", err);
+        products = parsedProducts.length > 0 ? parsedProducts : FALLBACK_PRODUCTS;
+      } catch (error) {
+        console.warn("Google Sheets loading error:", error);
         products = FALLBACK_PRODUCTS;
+        errorState.classList.remove("hidden");
       }
 
-      document.getElementById("loading-state").classList.add("hidden");
+      loading.classList.add("hidden");
       renderCategoryTabs();
       renderProducts();
-      renderAdminList();
-      updateCartUI();
     }
 
     function renderCategoryTabs() {
       const container = document.getElementById("category-tabs");
-      const uniqueCats = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
-      container.innerHTML = uniqueCats.map(cat => {
-        const active = currentCategory === cat;
-        const label = cat === "All" ? "All Finds" : cat;
-        return `<button onclick="setCategory('${cat.replace(/'/g, "\\'")}')" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition ${
-          active ? "bg-rose-600 text-white shadow-sm" : "bg-white border border-slate-200 text-slate-600 hover:bg-rose-50"
-        }">${label}</button>`;
-      }).join("");
-    }
+      const categories = [
+        "All",
+        ...new Set(products.map(product => product.category).filter(Boolean))
+      ];
 
-    function setCategory(cat) {
-      currentCategory = cat;
-      renderCategoryTabs();
-      renderProducts();
-    }
-
-    function syncSearch(val) {
-      document.getElementById("search-input").value = val;
-      renderProducts();
-    }
-
-    function renderProducts() {
-      const query = (document.getElementById("search-input").value || "").toLowerCase();
-      const grid = document.getElementById("product-grid");
-      const empty = document.getElementById("empty-state");
-
-      const filtered = products.filter(p => {
-        const matchCat = currentCategory === "All" || p.category === currentCategory;
-        const matchQuery = p.title.toLowerCase().includes(query) || (p.desc || "").toLowerCase().includes(query);
-        return matchCat && matchQuery;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = "";
-        empty.classList.remove("hidden");
-        return;
-      }
-
-      empty.classList.add("hidden");
-      grid.innerHTML = filtered.map(p => {
-        const isDirect = p.mode === "direct";
-        const badge = !isDirect
-          ? `<span class="absolute top-2.5 left-2.5 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Affiliate Find</span>`
-          : `<span class="absolute top-2.5 left-2.5 bg-rose-100 text-rose-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full">On-Hand</span>`;
-
-        let actionButtons = "";
-        if (!isDirect) {
-          const btns = [];
-          if (p.shopee) btns.push(`<a href="${p.shopee}" target="_blank" rel="noopener" class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2 rounded-xl transition">Shopee</a>`);
-          if (p.tiktok) btns.push(`<a href="${p.tiktok}" target="_blank" rel="noopener" class="flex-1 text-center bg-slate-900 hover:bg-black text-white text-xs font-bold py-2 rounded-xl transition">TikTok</a>`);
-          if (p.lazada) btns.push(`<a href="${p.lazada}" target="_blank" rel="noopener" class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 rounded-xl transition">Lazada</a>`);
-          actionButtons = `<div class="flex gap-1.5 mt-3">${btns.join("")}</div>`;
-        } else {
-          actionButtons = `<button onclick="addToCart('${p.id}')" class="w-full mt-3 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold py-2.5 rounded-xl transition">Add to Bag</button>`;
-        }
+      container.innerHTML = categories.map(category => {
+        const active = currentCategory === category;
+        const label = category === "All" ? "All Finds" : category;
 
         return `
-          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
-            <div>
-              <div class="relative aspect-square bg-slate-100 overflow-hidden">
-                ${badge}
-                <img src="${p.image || 'https://placehold.co/600x600?text=Glow+%26+Style+PH'}" alt="${p.title}" class="w-full h-full object-cover" />
-              </div>
-              <div class="p-3.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">${p.category}</p>
-                <h3 class="font-bold text-xs sm:text-sm text-slate-900 line-clamp-2 mt-0.5">${p.title}</h3>
-                <p class="font-extrabold text-sm sm:text-base text-rose-600 mt-1.5">₱${Number(p.price).toLocaleString()}</p>
-              </div>
-            </div>
-            <div class="px-3.5 pb-3.5">${actionButtons}</div>
-          </div>
+          <button
+            onclick="setCategory('${escapeHTML(category)}')"
+            class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition ${
+              active
+                ? "bg-rose-600 text-white shadow-sm"
+                : "bg-white border border-slate-200 text-slate-600 hover:bg-rose-50"
+            }"
+          >
+            ${escapeHTML(label)}
+          </button>
         `;
       }).join("");
     }
 
-    function addToCart(id) {
-      const prod = products.find(p => p.id === id);
-      if (!prod) return;
-      const existing = cart.find(i => i.id === id);
-      if (existing) existing.qty += 1;
-      else cart.push({ ...prod, qty: 1 });
-      saveCart();
-      toggleCart(true);
-    }
-
-    function saveCart() {
-      localStorage.setItem("glow_cart", JSON.stringify(cart));
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const count = cart.reduce((sum, i) => sum + i.qty, 0);
-      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-      document.getElementById("cart-count").textContent = count;
-      document.getElementById("cart-total").textContent = "₱" + total.toLocaleString();
-
-      const list = document.getElementById("cart-items");
-      if (cart.length === 0) {
-        list.innerHTML = `<p class="text-xs text-slate-400 text-center py-8">Your bag is empty.</p>`;
-        return;
-      }
-      list.innerHTML = cart.map((item, idx) => `
-        <div class="flex items-center justify-between gap-3 bg-slate-50 p-2.5 rounded-xl">
-          <div>
-            <p class="font-bold text-xs text-slate-800">${item.title}</p>
-            <p class="text-xs text-rose-600 font-semibold">₱${item.price.toLocaleString()} × ${item.qty}</p>
-          </div>
-          <button onclick="removeCartItem(${idx})" class="text-xs text-rose-500 font-bold px-2">Remove</button>
-        </div>
-      `).join("");
-    }
-
-    function removeCartItem(idx) {
-      cart.splice(idx, 1);
-      saveCart();
-    }
-
-    function toggleCart(forceOpen) {
-      const drawer = document.getElementById("cart-drawer");
-      if (forceOpen === true) drawer.classList.remove("hidden");
-      else drawer.classList.toggle("hidden");
-    }
-
-    function checkoutOrder() {
-      if (cart.length === 0) return alert("Your bag is empty!");
-      const name = document.getElementById("cust-name").value.trim();
-      const addr = document.getElementById("cust-address").value.trim();
-      const pay = document.getElementById("cust-payment").value;
-      if (!name || !addr) return alert("Please enter your name and delivery address.");
-      alert(`Thank you, ${name}! Your direct order via ${pay} has been recorded.`);
-      cart = [];
-      saveCart();
-      toggleCart(false);
-    }
-
-    function openAdminModal() {
-      document.getElementById("admin-modal").classList.remove("hidden");
-      document.getElementById("admin-pass-input").value = "";
-      document.getElementById("admin-pass-input").focus();
-    }
-
-    function closeAdminModal() {
-      document.getElementById("admin-modal").classList.add("hidden");
-    }
-
-    function verifyAdmin() {
-      const val = document.getElementById("admin-pass-input").value.trim();
-      if (ADMIN_PASSWORDS.includes(val)) {
-        closeAdminModal();
-        document.getElementById("store-view").classList.add("hidden");
-        document.getElementById("admin-view").classList.remove("hidden");
-        renderAdminList();
-      } else {
-        alert("Incorrect passcode! Try ADMINDEZ2026");
-      }
-    }
-
-    function showStoreView() {
-      document.getElementById("admin-view").classList.add("hidden");
-      document.getElementById("store-view").classList.remove("hidden");
+    function setCategory(category) {
+      currentCategory = category;
+      renderCategoryTabs();
       renderProducts();
     }
 
-    function renderAdminList() {
-      document.getElementById("admin-total").textContent = products.length;
-      const list = document.getElementById("admin-product-list");
-      list.innerHTML = products.map(p => `
-        <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/60">
-          <div class="flex items-center gap-3">
-            <img src="${p.image || 'https://placehold.co/100x100'}" class="w-11 h-11 rounded-lg object-cover bg-white border" />
-            <div>
-              <p class="font-bold text-xs text-slate-900">${p.title}</p>
-              <p class="text-[11px] text-slate-500">₱${Number(p.price).toLocaleString()} • ${p.category}</p>
-            </div>
-          </div>
-          <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Synced</span>
-        </div>
-      `).join("");
+    function syncSearch(value) {
+      document.getElementById("search-input").value = value;
+      renderProducts();
     }
 
+    function createMarketplaceButtons(product) {
+      const buttons = [];
+
+      if (product.tiktok) {
+        buttons.push(`
+          <a
+            href="${escapeHTML(product.tiktok)}"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            class="flex-1 text-center bg-slate-900 hover:bg-black text-white text-[11px] sm:text-xs font-bold py-2.5 px-1 rounded-xl transition"
+          >
+            TikTok
+          </a>
+        `);
+      }
+
+      if (product.shopee) {
+        buttons.push(`
+          <a
+            href="${escapeHTML(product.shopee)}"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white text-[11px] sm:text-xs font-bold py-2.5 px-1 rounded-xl transition"
+          >
+            Shopee
+          </a>
+        `);
+      }
+
+      if (product.lazada) {
+        buttons.push(`
+          <a
+            href="${escapeHTML(product.lazada)}"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-[11px] sm:text-xs font-bold py-2.5 px-1 rounded-xl transition"
+          >
+            Lazada
+          </a>
+        `);
+      }
+
+      if (buttons.length === 0) {
+        return `
+          <p class="text-center text-[11px] text-slate-400 py-2">
+            Product link coming soon
+          </p>
+        `;
+      }
+
+      return `
+        <div class="flex gap-1.5 mt-3">
+          ${buttons.join("")}
+        </div>
+      `;
+    }
+
+    function renderProducts() {
+      const searchInput = document.getElementById("search-input");
+      const mobileInput = document.getElementById("search-input-mobile");
+
+      const query = (
+        searchInput.value || mobileInput.value || ""
+      ).toLowerCase().trim();
+
+      const grid = document.getElementById("product-grid");
+      const emptyState = document.getElementById("empty-state");
+
+      const filteredProducts = products.filter(product => {
+        const matchesCategory =
+          currentCategory === "All" ||
+          product.category === currentCategory;
+
+        const searchableText = (
+          product.title + " " +
+          product.desc + " " +
+          product.category
+        ).toLowerCase();
+
+        return matchesCategory && searchableText.includes(query);
+      });
+
+      if (filteredProducts.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+
+      grid.innerHTML = filteredProducts.map(product => {
+        const title = escapeHTML(product.title);
+        const category = escapeHTML(product.category);
+        const description = escapeHTML(product.desc || "");
+        const image = safeImageURL(product.image);
+        const price = Number(product.price) || 0;
+
+        return `
+          <article class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-square bg-slate-100 overflow-hidden">
+                <span class="absolute top-2.5 left-2.5 z-10 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+                  Affiliate Find
+                </span>
+
+                <img
+                  src="${image}"
+                  alt="${title}"
+                  loading="lazy"
+                  class="w-full h-full object-cover"
+                  onerror="this.src='https://placehold.co/600x600?text=Glow+%26+Style+PH'"
+                />
+              </div>
+
+              <div class="p-3.5">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  ${category}
+                </p>
+
+                <h3 class="font-bold text-xs sm:text-sm text-slate-900 line-clamp-2 mt-0.5">
+                  ${title}
+                </h3>
+
+                ${
+                  description
+                    ? `<p class="text-[10px] text-slate-500 mt-1 line-clamp-2">${description}</p>`
+                    : ""
+                }
+
+                <p class="font-extrabold text-sm sm:text-base text-rose-600 mt-2">
+                  ${price > 0 ? "₱" + price.toLocaleString("en-PH") : "Check marketplace price"}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-3.5 pb-3.5">
+              ${createMarketplaceButtons(product)}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function safeImageURL(value) {
+      try {
+        const url = new URL(String(value || ""));
+        if (url.protocol === "https:") {
+          return escapeHTML(url.href);
+        }
+        return "https://placehold.co/600x600?text=Glow+%26+Style+PH";
+      } catch (error) {
+        return "https://placehold.co/600x600?text=Glow+%26+Style+PH";
+      }
+    }
+
+    document.getElementById("current-year").textContent = new Date().getFullYear();
     fetchProductsFromSheet();
   </script>
+
 </body>
 </html>
